@@ -20,3 +20,8 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.applicationInfo:hover {
+    cursor: pointer;
+    color: #7160e8;
+}
