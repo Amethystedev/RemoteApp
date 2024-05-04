@@ -52,6 +52,7 @@
             btn_valid.Size = new Size(112, 40);
             btn_valid.TabIndex = 1;
             btn_valid.UseVisualStyleBackColor = true;
+            btn_valid.Click += btn_valid_Click;
             // 
             // btn_file_explore
             // 
@@ -61,6 +62,7 @@
             btn_file_explore.TabIndex = 2;
             btn_file_explore.Text = "...";
             btn_file_explore.UseVisualStyleBackColor = true;
+            btn_file_explore.Click += btn_file_explore_Click;
             // 
             // openFileDialog1
             // 

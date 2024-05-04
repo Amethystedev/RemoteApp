@@ -7,7 +7,7 @@ namespace RemoteApp
 
     public partial class Main : Form
     {
-        public string xcheminreg = @"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Terminal Server\TSAppAllowList\Applications";
+        public static string xcheminreg = @"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Terminal Server\TSAppAllowList\Applications";
         public Main()
         {
             InitializeComponent();
@@ -20,11 +20,11 @@ namespace RemoteApp
             List<string[]> xapplications = lecturereg();
             foreach (string[] xapplication in xapplications)
             {
-                DGV_Applications.Rows.Add(xapplication[1], xapplication[2]);
+                DGV_Applications.Rows.Add(xapplication[1], xapplication[2], xapplication[3]);
             }
         }
 
-        private List<string[]> lecturereg()
+        private List<string[]> lecturereg() //renvoi une liste des applications, chaque applications contient 0-IconPath, 1-Name, 2-Path, 3-KeyName
         {
             string[] xapplications;
             List<string[]> xlisteapplications = new List<string[]>();
@@ -34,14 +34,14 @@ namespace RemoteApp
             foreach (string keyname in xcles)
             {
                 xapplicationcle = Registry.LocalMachine.OpenSubKey(xcheminreg + "\\" + keyname);
-                xapplications = new string[3] { xapplicationcle.GetValue("IconPath").ToString(), xapplicationcle.GetValue("Name").ToString(), xapplicationcle.GetValue("Path").ToString() };
+                xapplications = new string[4] { xapplicationcle.GetValue("IconPath").ToString(), xapplicationcle.GetValue("Name").ToString(), xapplicationcle.GetValue("Path").ToString(), keyname.ToString() };
                 xlisteapplications.Add(xapplications);
             }
             return xlisteapplications;
         }
         private void btn_add_Click(object sender, EventArgs e)
         {
-            Edit edit = new Edit("Add","");
+            Edit edit = new Edit("Add", "", "");
             edit.ShowDialog();
         }
 
@@ -49,16 +49,18 @@ namespace RemoteApp
         {
             string xapplication = string.Empty;
             string xcheminapplication = string.Empty;
+            string xcle = string.Empty;
             foreach (DataGridViewRow row in DGV_Applications.Rows)
             {
                 if (row.Selected || row.Cells[0].Selected)
                 {
                     xapplication = row.Cells[0].Value.ToString();
                     xcheminapplication = row.Cells[1].Value.ToString();
+                    xcle = row.Cells[2].Value.ToString();
                     break;
                 }
             }
-            Edit edit = new Edit(xapplication, xcheminapplication);
+            Edit edit = new Edit(xapplication, xcheminapplication, xcle);
             edit.ShowDialog();
         }
 
@@ -66,6 +68,10 @@ namespace RemoteApp
         {
 
         }
-    }
 
+        private void Main_Activated(object sender, EventArgs e)
+        {
+            refreshdgv();
+        }
+    }
 }
