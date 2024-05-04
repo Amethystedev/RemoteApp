@@ -52,23 +52,10 @@ namespace RemoteApp
         {
             if (tb_app.Text !=string.Empty && tb_cheminapp.Text != string.Empty)
             {
-                if (xtype == "Add")
+                if (xtype != "Add")
                 {
-                    RegistryKey xregistre = Registry.LocalMachine.CreateSubKey(Main.xcheminreg+"\\"+tb_app.Text);
-                    xregistre.SetValue("CommandLineSetting", 1);
-                    xregistre.SetValue("IconIndex", 0);
-                    xregistre.SetValue("IconPath", tb_cheminapp.Text);
-                    xregistre.SetValue("Name", tb_app.Text);
-                    xregistre.SetValue("Path", tb_cheminapp.Text);
-                    xregistre.SetValue("RequiredCommandLine", "");
-                    xregistre.SetValue("ShowInTSWA", 0);
-                    xregistre.SetValue("VPath",tb_cheminapp.Text);
-                    xregistre.Close();
-                    this.Close();
-                }
-                else
-                {
-                    RegistryKey xregistre = Registry.LocalMachine.OpenSubKey(Main.xcheminreg + "\\" + xcle);
+                    Registry.LocalMachine.DeleteSubKeyTree(Main.xcheminreg + "\\" + xcle);
+                    RegistryKey xregistre = Registry.LocalMachine.CreateSubKey(Main.xcheminreg + "\\" + xcle);
                     xregistre.SetValue("CommandLineSetting", 1);
                     xregistre.SetValue("IconIndex", 0);
                     xregistre.SetValue("IconPath", tb_cheminapp.Text);
@@ -78,8 +65,21 @@ namespace RemoteApp
                     xregistre.SetValue("ShowInTSWA", 0);
                     xregistre.SetValue("VPath", tb_cheminapp.Text);
                     xregistre.Close();
-                    this.Close();
                 }
+                else
+                {
+                    RegistryKey xregistre = Registry.LocalMachine.CreateSubKey(Main.xcheminreg + "\\" + tb_app.Text);
+                    xregistre.SetValue("CommandLineSetting", 1);
+                    xregistre.SetValue("IconIndex", 0);
+                    xregistre.SetValue("IconPath", tb_cheminapp.Text);
+                    xregistre.SetValue("Name", tb_app.Text);
+                    xregistre.SetValue("Path", tb_cheminapp.Text);
+                    xregistre.SetValue("RequiredCommandLine", "");
+                    xregistre.SetValue("ShowInTSWA", 0);
+                    xregistre.SetValue("VPath", tb_cheminapp.Text);
+                    xregistre.Close();
+                }   
+                this.Close();
             }
         }
     }

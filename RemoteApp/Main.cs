@@ -11,6 +11,7 @@ namespace RemoteApp
         public Main()
         {
             InitializeComponent();
+            creerkey();
             refreshdgv();
         }
 
@@ -66,12 +67,38 @@ namespace RemoteApp
 
         private void btn_remove_Click(object sender, EventArgs e)
         {
-
+            string xcle = string.Empty;
+            foreach (DataGridViewRow row in DGV_Applications.Rows)
+            {
+                if (row.Selected || row.Cells[0].Selected)
+                {
+                    xcle = row.Cells[2].Value.ToString();
+                    break;
+                }
+            }
+            if (xcle != string.Empty)
+            {
+                Registry.LocalMachine.DeleteSubKeyTree(xcheminreg + "\\" + xcle);
+            }
+            refreshdgv();
         }
 
         private void Main_Activated(object sender, EventArgs e)
         {
             refreshdgv();
+        }
+
+        private void creerkey()
+        {
+            try
+            {
+                Registry.LocalMachine.OpenSubKey(xcheminreg);
+            }
+            catch
+            {
+                Registry.LocalMachine.CreateSubKey(@"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Terminal Server\TSAppAllowList");
+                Registry.LocalMachine.CreateSubKey(@"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Terminal Server\TSAppAllowList\Applications");
+            }
         }
     }
 }
