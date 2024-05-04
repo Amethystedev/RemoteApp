@@ -94,6 +94,11 @@ namespace RemoteApp
             if (xsubcle == null ) 
             {
                 Registry.LocalMachine.CreateSubKey(@"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Terminal Server\TSAppAllowList");
+            }
+
+            RegistryKey xsubcle2 = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Terminal Server\TSAppAllowList\Applications");
+            if (xsubcle2 == null)
+            {
                 Registry.LocalMachine.CreateSubKey(@"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Terminal Server\TSAppAllowList\Applications");
             }
         }

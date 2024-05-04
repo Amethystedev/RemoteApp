@@ -5,6 +5,11 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+        @foreach (ApplicationInfo appInfo in Model.lecturereg())
+        {
+            <div class='applicationInfo'>
+                <img class='iconAppInfo' src='@appInfo.iconPath'>
+                <span>@appInfo.name</span>
+            </div>
+        }
 </div>
