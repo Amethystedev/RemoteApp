@@ -90,9 +90,10 @@ namespace RemoteApp
 
         private void creerkey()
         {
+            RegistryKey xsubcle = Registry.LocalMachine.OpenSubKey(xcheminreg);
             try
             {
-                Registry.LocalMachine.OpenSubKey(xcheminreg);
+                string[] xcles = xsubcle.GetSubKeyNames();
             }
             catch
             {
