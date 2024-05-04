@@ -3,13 +3,19 @@
 @{
     ViewData["Title"] = "Home page";
 }
+<script>
+    function Download(name)
+    {
+        window.location.href = "?download=" + name;
+    }
+</script>
 
 <div class="text-center">
-        @foreach (ApplicationInfo appInfo in Model.lecturereg())
-        {
-            <div class='applicationInfo'>
-                <img class='iconAppInfo' src='@appInfo.iconPath'>
-                <span>@appInfo.name</span>
-            </div>
-        }
+    @foreach (ApplicationInfo appInfo in Model.applications)
+    {
+        <div class='applicationInfo' onclick="Download('@appInfo.name')">
+            <img class='iconAppInfo' src='data:image/png;base64,@appInfo.image64'>
+            <span>@appInfo.name</span>
+        </div>
+    }
 </div>
