@@ -20,7 +20,7 @@ namespace RemoteApp
             List<string[]> xapplications = lecturereg();
             foreach (string[] xapplication in xapplications)
             {
-                DGV_Applications.Rows.Add(xapplication[1]);
+                DGV_Applications.Rows.Add(xapplication[1], xapplication[2]);
             }
         }
 
@@ -41,13 +41,24 @@ namespace RemoteApp
         }
         private void btn_add_Click(object sender, EventArgs e)
         {
-            Edit edit = new Edit("Add");
+            Edit edit = new Edit("Add","");
             edit.ShowDialog();
         }
 
         private void btn_edit_Click(object sender, EventArgs e)
         {
-            Edit edit = new Edit("edit");
+            string xapplication = string.Empty;
+            string xcheminapplication = string.Empty;
+            foreach (DataGridViewRow row in DGV_Applications.Rows)
+            {
+                if (row.Selected || row.Cells[0].Selected)
+                {
+                    xapplication = row.Cells[0].Value.ToString();
+                    xcheminapplication = row.Cells[1].Value.ToString();
+                    break;
+                }
+            }
+            Edit edit = new Edit(xapplication, xcheminapplication);
             edit.ShowDialog();
         }
 

@@ -12,12 +12,13 @@ namespace RemoteApp
 {
     public partial class Edit : Form
     {
-        public Edit(string type)
+        public Edit(string type, string cheminapp)
         {
             InitializeComponent();
-            if (type == "edit") 
+            if (type != "Add") 
             {
-                tb_cheminapp.Text = "Edit";
+                tb_app.Text = type;
+                tb_cheminapp.Text = cheminapp;
             }
 
         }
