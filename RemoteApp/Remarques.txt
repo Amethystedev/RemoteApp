@@ -1,0 +1,27 @@
+﻿Endroit Reg Applications : 
+	Ordinateur\HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Terminal Server\TSAppAllowList\Applications
+	Un Dossier par Applications
+
+Forme Reg Applications : 
+	CommandLineSetting Dword32 : 1
+	IconIndex Dword32 : 0
+	IconPath chaine : Chemin de l'exe
+	Name Chaine : Nom à recuperer
+	Path Chaine : Chemin de l'exe
+	RequiredCommandLine Chaine : Vide
+	ShowInTSWA Dword32 : 0
+	VPath Chaine : Chemin de l'exe
+
+Forme Fichier RDP
+	alternate shell:s:rdpinit.exe
+	full address:s:ip du serveur
+	remoteapplicationmode:i:1
+	remoteapplicationname:s:nom application
+	remoteapplicationprogram:s:||nom application
+	disableremoteappcapscheck:i:1
+	drivestoredirect:s:*
+	prompt for credentials:i:1
+	promptcredentialonce:i:0
+	redirectcomports:i:1
+	span monitors:i:1
+	use multimon:i:1
