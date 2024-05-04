@@ -28,69 +28,88 @@
         /// </summary>
         private void InitializeComponent()
         {
-            dataGridView1 = new DataGridView();
-            button1 = new Button();
-            button2 = new Button();
-            button3 = new Button();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
+            DGV_Applications = new DataGridView();
+            Application = new DataGridViewTextBoxColumn();
+            btn_add = new Button();
+            btn_edit = new Button();
+            btn_remove = new Button();
+            ((System.ComponentModel.ISupportInitialize)DGV_Applications).BeginInit();
             SuspendLayout();
             // 
-            // dataGridView1
+            // DGV_Applications
             // 
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(31, 16);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.RowHeadersWidth = 62;
-            dataGridView1.Size = new Size(582, 401);
-            dataGridView1.TabIndex = 0;
+            DGV_Applications.AllowUserToAddRows = false;
+            DGV_Applications.AllowUserToDeleteRows = false;
+            DGV_Applications.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            DGV_Applications.Columns.AddRange(new DataGridViewColumn[] { Application });
+            DGV_Applications.Location = new Point(31, 16);
+            DGV_Applications.MultiSelect = false;
+            DGV_Applications.Name = "DGV_Applications";
+            DGV_Applications.ReadOnly = true;
+            DGV_Applications.RowHeadersWidth = 62;
+            DGV_Applications.Size = new Size(582, 401);
+            DGV_Applications.TabIndex = 0;
             // 
-            // button1
+            // Application
             // 
-            button1.Location = new Point(637, 37);
-            button1.Name = "button1";
-            button1.Size = new Size(112, 34);
-            button1.TabIndex = 1;
-            button1.Text = "+";
-            button1.UseVisualStyleBackColor = true;
+            Application.HeaderText = "Application";
+            Application.MinimumWidth = 8;
+            Application.Name = "Application";
+            Application.ReadOnly = true;
+            Application.Width = 300;
             // 
-            // button2
+            // btn_add
             // 
-            button2.Location = new Point(640, 98);
-            button2.Name = "button2";
-            button2.Size = new Size(112, 34);
-            button2.TabIndex = 2;
-            button2.Text = "-";
-            button2.UseVisualStyleBackColor = true;
+            btn_add.Image = (Image)resources.GetObject("btn_add.Image");
+            btn_add.Location = new Point(637, 37);
+            btn_add.Name = "btn_add";
+            btn_add.Size = new Size(112, 40);
+            btn_add.TabIndex = 1;
+            btn_add.UseVisualStyleBackColor = true;
+            btn_add.Click += btn_add_Click;
             // 
-            // button3
+            // btn_edit
             // 
-            button3.Location = new Point(646, 164);
-            button3.Name = "button3";
-            button3.Size = new Size(112, 34);
-            button3.TabIndex = 3;
-            button3.Text = "Edit";
-            button3.UseVisualStyleBackColor = true;
+            btn_edit.Image = (Image)resources.GetObject("btn_edit.Image");
+            btn_edit.Location = new Point(640, 98);
+            btn_edit.Name = "btn_edit";
+            btn_edit.Size = new Size(112, 40);
+            btn_edit.TabIndex = 2;
+            btn_edit.UseVisualStyleBackColor = true;
+            btn_edit.Click += btn_edit_Click;
+            // 
+            // btn_remove
+            // 
+            btn_remove.Image = (Image)resources.GetObject("btn_remove.Image");
+            btn_remove.Location = new Point(646, 164);
+            btn_remove.Name = "btn_remove";
+            btn_remove.Size = new Size(112, 40);
+            btn_remove.TabIndex = 3;
+            btn_remove.UseVisualStyleBackColor = true;
+            btn_remove.Click += btn_remove_Click;
             // 
             // Main
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
-            Controls.Add(button3);
-            Controls.Add(button2);
-            Controls.Add(button1);
-            Controls.Add(dataGridView1);
+            Controls.Add(btn_remove);
+            Controls.Add(btn_edit);
+            Controls.Add(btn_add);
+            Controls.Add(DGV_Applications);
             Name = "Main";
-            Text = "Form1";
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            Text = "RemoteApp Main";
+            ((System.ComponentModel.ISupportInitialize)DGV_Applications).EndInit();
             ResumeLayout(false);
         }
 
         #endregion
 
-        private DataGridView dataGridView1;
-        private Button button1;
-        private Button button2;
-        private Button button3;
+        private DataGridView DGV_Applications;
+        private Button btn_add;
+        private Button btn_edit;
+        private Button btn_remove;
+        private DataGridViewTextBoxColumn Application;
     }
 }
