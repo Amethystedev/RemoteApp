@@ -100,7 +100,6 @@ namespace Front.Pages
                 image64 = Convert.ToBase64String(imageBytes);
             }
         }
-
         
         public string GenerateRdpData()
         {
