@@ -82,7 +82,7 @@
             // btn_add
             // 
             btn_add.Image = (Image)resources.GetObject("btn_add.Image");
-            btn_add.Location = new Point(637, 37);
+            btn_add.Location = new Point(640, 32);
             btn_add.Name = "btn_add";
             btn_add.Size = new Size(112, 40);
             btn_add.TabIndex = 1;
@@ -102,7 +102,7 @@
             // btn_remove
             // 
             btn_remove.Image = (Image)resources.GetObject("btn_remove.Image");
-            btn_remove.Location = new Point(646, 164);
+            btn_remove.Location = new Point(640, 162);
             btn_remove.Name = "btn_remove";
             btn_remove.Size = new Size(112, 40);
             btn_remove.TabIndex = 3;
