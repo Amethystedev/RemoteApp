@@ -36,6 +36,7 @@
             btn_add = new Button();
             btn_edit = new Button();
             btn_remove = new Button();
+            lbl_ip = new Label();
             ((System.ComponentModel.ISupportInitialize)DGV_Applications).BeginInit();
             SuspendLayout();
             // 
@@ -108,11 +109,21 @@
             btn_remove.UseVisualStyleBackColor = true;
             btn_remove.Click += btn_remove_Click;
             // 
+            // lbl_ip
+            // 
+            lbl_ip.AutoSize = true;
+            lbl_ip.Location = new Point(637, 392);
+            lbl_ip.Name = "lbl_ip";
+            lbl_ip.Size = new Size(53, 25);
+            lbl_ip.TabIndex = 4;
+            lbl_ip.Text = "lbl_ip";
+            // 
             // Main
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(lbl_ip);
             Controls.Add(btn_remove);
             Controls.Add(btn_edit);
             Controls.Add(btn_add);
@@ -122,6 +133,7 @@
             Activated += Main_Activated;
             ((System.ComponentModel.ISupportInitialize)DGV_Applications).EndInit();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -133,5 +145,6 @@
         private DataGridViewTextBoxColumn Application;
         private DataGridViewTextBoxColumn CheminApplication;
         private DataGridViewTextBoxColumn Cle;
+        private Label lbl_ip;
     }
 }

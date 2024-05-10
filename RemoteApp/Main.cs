@@ -1,4 +1,5 @@
 using Microsoft.Win32;
+using System.Net;
 using System.Reflection;
 
 namespace RemoteApp
@@ -13,6 +14,7 @@ namespace RemoteApp
             InitializeComponent();
             creerkey();
             refreshdgv();
+            lbl_ip.Text = iplocale();
         }
 
         private void refreshdgv()
@@ -101,6 +103,22 @@ namespace RemoteApp
             {
                 Registry.LocalMachine.CreateSubKey(@"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Terminal Server\TSAppAllowList\Applications");
             }
+        }
+
+        private string iplocale()
+        {
+            string xip = string.Empty;
+            IPHostEntry ipEntry = Dns.GetHostEntry(Dns.GetHostName());
+            IPAddress[] addr = ipEntry.AddressList;
+
+            for (int i = 0; i < addr.Length; i++)
+            {
+                if (addr[i].ToString().Contains("192.168"))
+                {
+                    xip = addr[i].ToString();
+                }
+            }
+            return xip;
         }
     }
 }
