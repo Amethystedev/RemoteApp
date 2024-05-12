@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             DGV_Applications = new DataGridView();
             Application = new DataGridViewTextBoxColumn();
             CheminApplication = new DataGridViewTextBoxColumn();
@@ -37,6 +36,7 @@
             btn_edit = new Button();
             btn_remove = new Button();
             lbl_ip = new Label();
+            label1 = new Label();
             ((System.ComponentModel.ISupportInitialize)DGV_Applications).BeginInit();
             SuspendLayout();
             // 
@@ -44,6 +44,7 @@
             // 
             DGV_Applications.AllowUserToAddRows = false;
             DGV_Applications.AllowUserToDeleteRows = false;
+            DGV_Applications.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             DGV_Applications.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             DGV_Applications.Columns.AddRange(new DataGridViewColumn[] { Application, CheminApplication, Cle });
             DGV_Applications.Location = new Point(31, 16);
@@ -56,19 +57,19 @@
             // 
             // Application
             // 
+            Application.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             Application.HeaderText = "Application";
             Application.MinimumWidth = 8;
             Application.Name = "Application";
             Application.ReadOnly = true;
-            Application.Width = 250;
             // 
             // CheminApplication
             // 
+            CheminApplication.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             CheminApplication.HeaderText = "Chemin Application";
             CheminApplication.MinimumWidth = 8;
             CheminApplication.Name = "CheminApplication";
             CheminApplication.ReadOnly = true;
-            CheminApplication.Width = 250;
             // 
             // Cle
             // 
@@ -81,8 +82,10 @@
             // 
             // btn_add
             // 
-            btn_add.Image = (Image)resources.GetObject("btn_add.Image");
-            btn_add.Location = new Point(640, 32);
+            btn_add.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btn_add.BackgroundImage = Properties.Resources.plus;
+            btn_add.BackgroundImageLayout = ImageLayout.Center;
+            btn_add.Location = new Point(637, 92);
             btn_add.Name = "btn_add";
             btn_add.Size = new Size(112, 40);
             btn_add.TabIndex = 1;
@@ -91,8 +94,10 @@
             // 
             // btn_edit
             // 
-            btn_edit.Image = (Image)resources.GetObject("btn_edit.Image");
-            btn_edit.Location = new Point(640, 98);
+            btn_edit.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btn_edit.BackgroundImage = Properties.Resources.edit;
+            btn_edit.BackgroundImageLayout = ImageLayout.Center;
+            btn_edit.Location = new Point(637, 158);
             btn_edit.Name = "btn_edit";
             btn_edit.Size = new Size(112, 40);
             btn_edit.TabIndex = 2;
@@ -101,8 +106,10 @@
             // 
             // btn_remove
             // 
-            btn_remove.Image = (Image)resources.GetObject("btn_remove.Image");
-            btn_remove.Location = new Point(640, 162);
+            btn_remove.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btn_remove.BackgroundImage = Properties.Resources.moins;
+            btn_remove.BackgroundImageLayout = ImageLayout.Center;
+            btn_remove.Location = new Point(637, 222);
             btn_remove.Name = "btn_remove";
             btn_remove.Size = new Size(112, 40);
             btn_remove.TabIndex = 3;
@@ -111,6 +118,7 @@
             // 
             // lbl_ip
             // 
+            lbl_ip.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             lbl_ip.AutoSize = true;
             lbl_ip.Location = new Point(637, 392);
             lbl_ip.Name = "lbl_ip";
@@ -118,17 +126,29 @@
             lbl_ip.TabIndex = 4;
             lbl_ip.Text = "lbl_ip";
             // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(642, 17);
+            label1.Name = "label1";
+            label1.Size = new Size(99, 25);
+            label1.TabIndex = 5;
+            label1.Text = "Active RDP";
+            // 
             // Main
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(label1);
             Controls.Add(lbl_ip);
             Controls.Add(btn_remove);
             Controls.Add(btn_edit);
             Controls.Add(btn_add);
             Controls.Add(DGV_Applications);
+            MinimumSize = new Size(822, 506);
             Name = "Main";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "RemoteApp Main";
             Activated += Main_Activated;
             ((System.ComponentModel.ISupportInitialize)DGV_Applications).EndInit();
@@ -142,9 +162,10 @@
         private Button btn_add;
         private Button btn_edit;
         private Button btn_remove;
+        private Label lbl_ip;
         private DataGridViewTextBoxColumn Application;
         private DataGridViewTextBoxColumn CheminApplication;
         private DataGridViewTextBoxColumn Cle;
-        private Label lbl_ip;
+        private Label label1;
     }
 }

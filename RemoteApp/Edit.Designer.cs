@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Edit));
             tb_app = new TextBox();
             btn_valid = new Button();
             btn_file_explore = new Button();
@@ -38,6 +37,7 @@
             // 
             // tb_app
             // 
+            tb_app.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             tb_app.Location = new Point(35, 32);
             tb_app.Name = "tb_app";
             tb_app.ReadOnly = true;
@@ -46,7 +46,9 @@
             // 
             // btn_valid
             // 
-            btn_valid.Image = (Image)resources.GetObject("btn_valid.Image");
+            btn_valid.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btn_valid.BackgroundImage = Properties.Resources.valid;
+            btn_valid.BackgroundImageLayout = ImageLayout.Center;
             btn_valid.Location = new Point(614, 49);
             btn_valid.Name = "btn_valid";
             btn_valid.Size = new Size(112, 40);
@@ -56,6 +58,7 @@
             // 
             // btn_file_explore
             // 
+            btn_file_explore.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             btn_file_explore.Location = new Point(556, 86);
             btn_file_explore.Name = "btn_file_explore";
             btn_file_explore.Size = new Size(36, 40);
@@ -70,6 +73,7 @@
             // 
             // tb_cheminapp
             // 
+            tb_cheminapp.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             tb_cheminapp.Location = new Point(35, 91);
             tb_cheminapp.Name = "tb_cheminapp";
             tb_cheminapp.ReadOnly = true;
@@ -85,7 +89,10 @@
             Controls.Add(btn_file_explore);
             Controls.Add(btn_valid);
             Controls.Add(tb_app);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
+            MaximizeBox = false;
             Name = "Edit";
+            StartPosition = FormStartPosition.CenterParent;
             Text = "Edit Application";
             ResumeLayout(false);
             PerformLayout();

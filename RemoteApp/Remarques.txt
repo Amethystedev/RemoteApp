@@ -25,3 +25,7 @@ Forme Fichier RDP
 	redirectcomports:i:1
 	span monitors:i:1
 	use multimon:i:1
+
+Activer RDP sur serveur
+	HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server
+	fDenyTSConnections DWORD : 0 = activé, 1 = desactivé
