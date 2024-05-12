@@ -29,3 +29,10 @@ Forme Fichier RDP
 Activer RDP sur serveur
 	HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server
 	fDenyTSConnections DWORD : 0 = activé, 1 = desactivé
+
+Ajouter RDP Users
+	net localgroup "Remote Desktop Users" "username" /add
+
+Supprimer RDP Users
+	net localgroup "Remote Desktop Users" "username" /delete
+
