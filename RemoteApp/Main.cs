@@ -1,4 +1,6 @@
 using Microsoft.Win32;
+using System.Data;
+using System.Diagnostics;
 using System.Net;
 using System.Reflection;
 
@@ -12,9 +14,9 @@ namespace RemoteApp
         public Main()
         {
             InitializeComponent();
-            creerkey();
-            refreshdgv();
             lbl_ip.Text = iplocale();
+            creerkey();
+            rdponoff();
         }
 
         private void refreshdgv()
@@ -93,7 +95,7 @@ namespace RemoteApp
         private void creerkey()
         {
             RegistryKey xsubcle = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Terminal Server\TSAppAllowList");
-            if (xsubcle == null ) 
+            if (xsubcle == null)
             {
                 Registry.LocalMachine.CreateSubKey(@"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Terminal Server\TSAppAllowList");
             }
@@ -119,6 +121,63 @@ namespace RemoteApp
                 }
             }
             return xip;
+        }
+
+        private void rdponoff()
+        {
+            if (readrdp())
+            {
+                btn_add.Enabled = true;
+                btn_edit.Enabled = true;
+                btn_remove.Enabled = true;
+                refreshdgv();
+                pb_rdp.BackgroundImage = Properties.Resources.on;
+            }
+            else
+            {
+                btn_add.Enabled = false;
+                btn_edit.Enabled = false;
+                btn_remove.Enabled = false;
+                DGV_Applications.Rows.Clear();
+                pb_rdp.BackgroundImage = Properties.Resources.off;
+            }
+        }
+
+        private void pb_rdp_Click(object sender, EventArgs e)
+        {
+            RegistryKey xsubcle = Registry.LocalMachine.OpenSubKey(@"SYSTEM\CurrentControlSet\Control\Terminal Server",true);
+            ProcessStartInfo psi = new ProcessStartInfo();
+            psi.FileName = "netsh";
+            psi.UseShellExecute = false;
+            psi.RedirectStandardError = true;
+            psi.RedirectStandardOutput = true;
+            if (readrdp())
+            {
+                xsubcle.SetValue("fDenyTSConnections", 1);
+                psi.Arguments="advfirewall firewall set rule group = \"remote desktop\" new enable= no";
+            }
+            else
+            {
+                xsubcle.SetValue("fDenyTSConnections", 0);
+                psi.Arguments = "advfirewall firewall set rule group = \"remote desktop\" new enable= yes";
+            }
+            Process proc = Process.Start(psi);
+            proc.WaitForExit();
+            rdponoff();
+        }
+
+        private bool readrdp()
+        {
+            RegistryKey xsubcle = Registry.LocalMachine.OpenSubKey(@"SYSTEM\CurrentControlSet\Control\Terminal Server");
+            string xtype = xsubcle.GetValue("fDenyTSConnections").ToString();
+            if (xtype == "0")
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

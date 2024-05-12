@@ -29,15 +29,17 @@
         private void InitializeComponent()
         {
             DGV_Applications = new DataGridView();
-            Application = new DataGridViewTextBoxColumn();
-            CheminApplication = new DataGridViewTextBoxColumn();
-            Cle = new DataGridViewTextBoxColumn();
             btn_add = new Button();
             btn_edit = new Button();
             btn_remove = new Button();
             lbl_ip = new Label();
             label1 = new Label();
+            pb_rdp = new PictureBox();
+            Application = new DataGridViewTextBoxColumn();
+            CheminApplication = new DataGridViewTextBoxColumn();
+            Cle = new DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)DGV_Applications).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pb_rdp).BeginInit();
             SuspendLayout();
             // 
             // DGV_Applications
@@ -54,31 +56,6 @@
             DGV_Applications.RowHeadersWidth = 62;
             DGV_Applications.Size = new Size(582, 401);
             DGV_Applications.TabIndex = 0;
-            // 
-            // Application
-            // 
-            Application.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            Application.HeaderText = "Application";
-            Application.MinimumWidth = 8;
-            Application.Name = "Application";
-            Application.ReadOnly = true;
-            // 
-            // CheminApplication
-            // 
-            CheminApplication.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            CheminApplication.HeaderText = "Chemin Application";
-            CheminApplication.MinimumWidth = 8;
-            CheminApplication.Name = "CheminApplication";
-            CheminApplication.ReadOnly = true;
-            // 
-            // Cle
-            // 
-            Cle.HeaderText = "Cle";
-            Cle.MinimumWidth = 8;
-            Cle.Name = "Cle";
-            Cle.ReadOnly = true;
-            Cle.Visible = false;
-            Cle.Width = 150;
             // 
             // btn_add
             // 
@@ -128,6 +105,7 @@
             // 
             // label1
             // 
+            label1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label1.AutoSize = true;
             label1.Location = new Point(642, 17);
             label1.Name = "label1";
@@ -135,11 +113,48 @@
             label1.TabIndex = 5;
             label1.Text = "Active RDP";
             // 
+            // pb_rdp
+            // 
+            pb_rdp.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            pb_rdp.BackgroundImageLayout = ImageLayout.Center;
+            pb_rdp.Location = new Point(684, 47);
+            pb_rdp.Name = "pb_rdp";
+            pb_rdp.Size = new Size(34, 34);
+            pb_rdp.TabIndex = 6;
+            pb_rdp.TabStop = false;
+            pb_rdp.Click += pb_rdp_Click;
+            // 
+            // Application
+            // 
+            Application.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            Application.HeaderText = "Application Name";
+            Application.MinimumWidth = 8;
+            Application.Name = "Application";
+            Application.ReadOnly = true;
+            // 
+            // CheminApplication
+            // 
+            CheminApplication.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            CheminApplication.HeaderText = "Application Exe";
+            CheminApplication.MinimumWidth = 8;
+            CheminApplication.Name = "CheminApplication";
+            CheminApplication.ReadOnly = true;
+            // 
+            // Cle
+            // 
+            Cle.HeaderText = "Cle";
+            Cle.MinimumWidth = 8;
+            Cle.Name = "Cle";
+            Cle.ReadOnly = true;
+            Cle.Visible = false;
+            Cle.Width = 150;
+            // 
             // Main
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(pb_rdp);
             Controls.Add(label1);
             Controls.Add(lbl_ip);
             Controls.Add(btn_remove);
@@ -149,9 +164,10 @@
             MinimumSize = new Size(822, 506);
             Name = "Main";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "RemoteApp Main";
+            Text = "Main";
             Activated += Main_Activated;
             ((System.ComponentModel.ISupportInitialize)DGV_Applications).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pb_rdp).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -163,9 +179,10 @@
         private Button btn_edit;
         private Button btn_remove;
         private Label lbl_ip;
+        private Label label1;
+        private PictureBox pb_rdp;
         private DataGridViewTextBoxColumn Application;
         private DataGridViewTextBoxColumn CheminApplication;
         private DataGridViewTextBoxColumn Cle;
-        private Label label1;
     }
 }
