@@ -3,6 +3,8 @@ using System.Data;
 using System.Diagnostics;
 using System.Net;
 using System.Reflection;
+using System.Security.Principal;
+using Cassia;
 
 namespace RemoteApp
 {
@@ -19,7 +21,7 @@ namespace RemoteApp
             rdponoff();
         }
 
-        private void refreshdgv()
+        private void refreshdgv()   //rafraichir la table qui donne les applications
         {
             DGV_Applications.Rows.Clear();
             List<string[]> xapplications = lecturereg();
@@ -87,12 +89,12 @@ namespace RemoteApp
             refreshdgv();
         }
 
-        private void Main_Activated(object sender, EventArgs e)
+        private void Main_Activated(object sender, EventArgs e) //on rafraichit la table à chaque fois que l'on reviens sur l'ecran main
         {
             refreshdgv();
         }
 
-        private void creerkey()
+        private void creerkey() //créer les clés de registre de base en cas de nouvelle installation
         {
             RegistryKey xsubcle = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Terminal Server\TSAppAllowList");
             if (xsubcle == null)
@@ -107,7 +109,7 @@ namespace RemoteApp
             }
         }
 
-        private string iplocale()
+        private string iplocale() //renvoie l'ip locale de la machine
         {
             string xip = string.Empty;
             IPHostEntry ipEntry = Dns.GetHostEntry(Dns.GetHostName());
@@ -123,7 +125,7 @@ namespace RemoteApp
             return xip;
         }
 
-        private void rdponoff()
+        private void rdponoff() //procedure qui mets la lumiere en jaune ou blanc puis bloque tout si rdp non activé sur le poste
         {
             if (readrdp())
             {
@@ -143,9 +145,9 @@ namespace RemoteApp
             }
         }
 
-        private void pb_rdp_Click(object sender, EventArgs e)
+        private void pb_rdp_Click(object sender, EventArgs e) //active ou desactive rdp sur le poste si on cliques sur la lumiere
         {
-            RegistryKey xsubcle = Registry.LocalMachine.OpenSubKey(@"SYSTEM\CurrentControlSet\Control\Terminal Server",true);
+            RegistryKey xsubcle = Registry.LocalMachine.OpenSubKey(@"SYSTEM\CurrentControlSet\Control\Terminal Server", true);
             ProcessStartInfo psi = new ProcessStartInfo();
             psi.FileName = "netsh";
             psi.UseShellExecute = false;
@@ -154,7 +156,7 @@ namespace RemoteApp
             if (readrdp())
             {
                 xsubcle.SetValue("fDenyTSConnections", 1);
-                psi.Arguments="advfirewall firewall set rule group = \"remote desktop\" new enable= no";
+                psi.Arguments = "advfirewall firewall set rule group = \"remote desktop\" new enable= no";
             }
             else
             {
@@ -166,7 +168,7 @@ namespace RemoteApp
             rdponoff();
         }
 
-        private bool readrdp()
+        private bool readrdp() //lecture de la base de registre pour savoir si rdp activé ou non
         {
             RegistryKey xsubcle = Registry.LocalMachine.OpenSubKey(@"SYSTEM\CurrentControlSet\Control\Terminal Server");
             string xtype = xsubcle.GetValue("fDenyTSConnections").ToString();
@@ -178,6 +180,47 @@ namespace RemoteApp
             {
                 return false;
             }
+        }
+
+        private string ListRDPUser() //renvoie la liste des utilisateurs possibles du rdp (attention, renvoie uniquement si rdp activé)
+        {
+            string xrdpuser  = "List of RDP Users"+"\n";
+            if (readrdp())
+            {
+                ITerminalServicesManager manager = new TerminalServicesManager();
+                using (ITerminalServer server = manager.GetRemoteServer(Environment.MachineName))
+                {
+                    server.Open();
+                    foreach (ITerminalServicesSession session in server.GetSessions())
+                    {
+                        NTAccount account = session.UserAccount;
+                        if (account != null)
+                        {
+                            int xtotal = account.ToString().Length;
+                            int xstartindex = Environment.MachineName.Length + 1;
+                            int xlength = xtotal - xstartindex;
+                            //decoupage car ça ecris "machine/nom user" pour ne garder que le nom user
+                            xrdpuser += account.ToString().Substring(xstartindex,xlength) + "\n";
+                        }
+                    }
+                }
+            }
+            else
+            {
+                xrdpuser += "Can't retrieve RDP users, RDP not open" + "\n";
+            }
+            return xrdpuser;
+        }
+
+        private void pb_rdp_MouseHover(object sender, EventArgs e) //donne la liste des users du rdp si survol de la lumiere
+        {
+            Control senderObject = sender as Control;
+            ToolTip info = new ToolTip
+            {
+                AutomaticDelay = 500
+            };
+            string tooltipMessage = ListRDPUser();
+            info.SetToolTip(senderObject, tooltipMessage);
         }
     }
 }

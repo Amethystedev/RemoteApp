@@ -28,16 +28,18 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             DGV_Applications = new DataGridView();
+            Application = new DataGridViewTextBoxColumn();
+            CheminApplication = new DataGridViewTextBoxColumn();
+            Cle = new DataGridViewTextBoxColumn();
             btn_add = new Button();
             btn_edit = new Button();
             btn_remove = new Button();
             lbl_ip = new Label();
             label1 = new Label();
             pb_rdp = new PictureBox();
-            Application = new DataGridViewTextBoxColumn();
-            CheminApplication = new DataGridViewTextBoxColumn();
-            Cle = new DataGridViewTextBoxColumn();
+            tt_info_rdpuser = new ToolTip(components);
             ((System.ComponentModel.ISupportInitialize)DGV_Applications).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pb_rdp).BeginInit();
             SuspendLayout();
@@ -56,6 +58,31 @@
             DGV_Applications.RowHeadersWidth = 62;
             DGV_Applications.Size = new Size(582, 401);
             DGV_Applications.TabIndex = 0;
+            // 
+            // Application
+            // 
+            Application.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            Application.HeaderText = "Application Name";
+            Application.MinimumWidth = 8;
+            Application.Name = "Application";
+            Application.ReadOnly = true;
+            // 
+            // CheminApplication
+            // 
+            CheminApplication.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            CheminApplication.HeaderText = "Application Exe";
+            CheminApplication.MinimumWidth = 8;
+            CheminApplication.Name = "CheminApplication";
+            CheminApplication.ReadOnly = true;
+            // 
+            // Cle
+            // 
+            Cle.HeaderText = "Cle";
+            Cle.MinimumWidth = 8;
+            Cle.Name = "Cle";
+            Cle.ReadOnly = true;
+            Cle.Visible = false;
+            Cle.Width = 150;
             // 
             // btn_add
             // 
@@ -123,31 +150,7 @@
             pb_rdp.TabIndex = 6;
             pb_rdp.TabStop = false;
             pb_rdp.Click += pb_rdp_Click;
-            // 
-            // Application
-            // 
-            Application.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            Application.HeaderText = "Application Name";
-            Application.MinimumWidth = 8;
-            Application.Name = "Application";
-            Application.ReadOnly = true;
-            // 
-            // CheminApplication
-            // 
-            CheminApplication.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            CheminApplication.HeaderText = "Application Exe";
-            CheminApplication.MinimumWidth = 8;
-            CheminApplication.Name = "CheminApplication";
-            CheminApplication.ReadOnly = true;
-            // 
-            // Cle
-            // 
-            Cle.HeaderText = "Cle";
-            Cle.MinimumWidth = 8;
-            Cle.Name = "Cle";
-            Cle.ReadOnly = true;
-            Cle.Visible = false;
-            Cle.Width = 150;
+            pb_rdp.MouseHover += pb_rdp_MouseHover;
             // 
             // Main
             // 
@@ -184,5 +187,6 @@
         private DataGridViewTextBoxColumn Application;
         private DataGridViewTextBoxColumn CheminApplication;
         private DataGridViewTextBoxColumn Cle;
+        private ToolTip tt_info_rdpuser;
     }
 }
