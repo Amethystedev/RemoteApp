@@ -35,4 +35,6 @@ Ajouter RDP Users
 
 Supprimer RDP Users
 	net localgroup "Remote Desktop Users" "username" /delete
+Truc à regarder
+	Get-LocalGroupMember -Group "Remote Desktop Users" (voir Get-LocalGroup pour avoir les groupes locaux)
 

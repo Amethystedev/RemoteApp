@@ -10,6 +10,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication" Version="2.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Reference Include="Cassia">
       <HintPath>DLL\Cassia.dll</HintPath>
     </Reference>

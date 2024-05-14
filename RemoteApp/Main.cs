@@ -5,6 +5,9 @@ using System.Net;
 using System.Reflection;
 using System.Security.Principal;
 using Cassia;
+using System.DirectoryServices;
+using System.Collections;
+using System.Globalization;
 
 namespace RemoteApp
 {
@@ -187,6 +190,7 @@ namespace RemoteApp
             string xrdpuser  = "List of RDP Users"+"\n";
             if (readrdp())
             {
+                //l'utilisateur en cours
                 ITerminalServicesManager manager = new TerminalServicesManager();
                 using (ITerminalServer server = manager.GetRemoteServer(Environment.MachineName))
                 {
@@ -202,6 +206,17 @@ namespace RemoteApp
                             //decoupage car ça ecris "machine/nom user" pour ne garder que le nom user
                             xrdpuser += account.ToString().Substring(xstartindex,xlength) + "\n";
                         }
+                    }
+                }
+                //on ajoute aussi ceux du groupe desktop user
+                DirectoryEntry machine = new DirectoryEntry("WinNT://" + Environment.MachineName);
+                DirectoryEntry group = machine.Children.Find(nomgrouperdp_fonction_langue(), "group");
+                if (group != null)
+                {
+                    foreach (object member in (IEnumerable)group.Invoke("Members"))
+                    {
+                        DirectoryEntry memberEntry = new DirectoryEntry(member);
+                        xrdpuser += memberEntry.Name + "\n";           
                     }
                 }
             }
@@ -221,6 +236,20 @@ namespace RemoteApp
             };
             string tooltipMessage = ListRDPUser();
             info.SetToolTip(senderObject, tooltipMessage);
+        }
+
+        private string nomgrouperdp_fonction_langue()
+        {
+            string xnomgroupe = string.Empty;
+            CultureInfo ci = CultureInfo.InstalledUICulture;
+            switch (ci.Name)
+            {
+                case "en-US": xnomgroupe = "Remote Desktop Users";
+                    break;
+                case "fr-FR": xnomgroupe = "Utilisateurs du Bureau à distance";
+                    break;
+            }
+            return xnomgroupe;
         }
     }
 }
