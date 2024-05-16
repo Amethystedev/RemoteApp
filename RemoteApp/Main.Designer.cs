@@ -40,6 +40,7 @@
             label1 = new Label();
             pb_rdp = new PictureBox();
             tt_info_rdpuser = new ToolTip(components);
+            lbl_version = new Label();
             ((System.ComponentModel.ISupportInitialize)DGV_Applications).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pb_rdp).BeginInit();
             SuspendLayout();
@@ -152,11 +153,22 @@
             pb_rdp.Click += pb_rdp_Click;
             pb_rdp.MouseHover += pb_rdp_MouseHover;
             // 
+            // lbl_version
+            // 
+            lbl_version.AutoSize = true;
+            lbl_version.Location = new Point(8, 422);
+            lbl_version.Name = "lbl_version";
+            lbl_version.Size = new Size(47, 25);
+            lbl_version.TabIndex = 7;
+            lbl_version.Text = "V0.1";
+            lbl_version.Click += lbl_version_Click;
+            // 
             // Main
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(lbl_version);
             Controls.Add(pb_rdp);
             Controls.Add(label1);
             Controls.Add(lbl_ip);
@@ -188,5 +200,6 @@
         private DataGridViewTextBoxColumn CheminApplication;
         private DataGridViewTextBoxColumn Cle;
         private ToolTip tt_info_rdpuser;
+        private Label lbl_version;
     }
 }

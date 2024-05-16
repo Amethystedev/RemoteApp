@@ -252,7 +252,7 @@ namespace RemoteApp
             JObject o1 = new JObject();
             o1.Add("en-US", "Remote Desktop Users");
             o1.Add("fr_FR", "Utilisateurs du Bureau à distance");
-            File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory+@"\lang.json", o1.ToString());
+            File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory + @"\lang.json", o1.ToString());
         }
 
         private string lecturefichierlangue(string xlangue) //lecture du fichier json pour verification
@@ -269,6 +269,16 @@ namespace RemoteApp
                 xutilbureau = lecturefichierlangue(xlangue);
             }
             return xutilbureau;
+        }
+
+        private void lbl_version_Click(object sender, EventArgs e)
+        {
+            string xcheminfichierchangelog = AppDomain.CurrentDomain.BaseDirectory + @"\changelog\changelog.txt";
+            if (File.Exists(xcheminfichierchangelog))
+            {
+                Process.Start("notepad.exe", xcheminfichierchangelog);
+            }
+
         }
     }
 }
