@@ -8,6 +8,7 @@ using Cassia;
 using System.DirectoryServices;
 using System.Collections;
 using System.Globalization;
+using Newtonsoft.Json.Linq;
 
 namespace RemoteApp
 {
@@ -187,7 +188,7 @@ namespace RemoteApp
 
         private string ListRDPUser() //renvoie la liste des utilisateurs possibles du rdp (attention, renvoie uniquement si rdp activé)
         {
-            string xrdpuser  = "List of RDP Users"+"\n";
+            string xrdpuser = "List of RDP Users" + "\n";
             if (readrdp())
             {
                 //l'utilisateur en cours
@@ -204,11 +205,11 @@ namespace RemoteApp
                             int xstartindex = Environment.MachineName.Length + 1;
                             int xlength = xtotal - xstartindex;
                             //decoupage car ça ecris "machine/nom user" pour ne garder que le nom user
-                            xrdpuser += account.ToString().Substring(xstartindex,xlength) + "\n";
+                            xrdpuser += account.ToString().Substring(xstartindex, xlength) + "\n";
                         }
                     }
                 }
-                //on ajoute aussi ceux du groupe desktop user
+                //on ajoute aussi ceux du groupe remote desktop user
                 DirectoryEntry machine = new DirectoryEntry("WinNT://" + Environment.MachineName);
                 DirectoryEntry group = machine.Children.Find(nomgrouperdp_fonction_langue(), "group");
                 if (group != null)
@@ -216,7 +217,7 @@ namespace RemoteApp
                     foreach (object member in (IEnumerable)group.Invoke("Members"))
                     {
                         DirectoryEntry memberEntry = new DirectoryEntry(member);
-                        xrdpuser += memberEntry.Name + "\n";           
+                        xrdpuser += memberEntry.Name + "\n";
                     }
                 }
             }
@@ -238,18 +239,36 @@ namespace RemoteApp
             info.SetToolTip(senderObject, tooltipMessage);
         }
 
-        private string nomgrouperdp_fonction_langue()
+        private string nomgrouperdp_fonction_langue() //renvoie le nom du groupe utilisateurs du rdp en fonction de la langue systeme, pour verif, les noms sont dans un fichier json
         {
             string xnomgroupe = string.Empty;
             CultureInfo ci = CultureInfo.InstalledUICulture;
-            switch (ci.Name)
-            {
-                case "en-US": xnomgroupe = "Remote Desktop Users";
-                    break;
-                case "fr-FR": xnomgroupe = "Utilisateurs du Bureau à distance";
-                    break;
-            }
+            xnomgroupe = lecturefichierlangue(ci.Name);
             return xnomgroupe;
+        }
+
+        private void creerfichierlangue() //creer le fichier json de base contenant les noms des groupes utilisateurs du rdp en fonction de la langue
+        {
+            JObject o1 = new JObject();
+            o1.Add("en-US", "Remote Desktop Users");
+            o1.Add("fr_FR", "Utilisateurs du Bureau à distance");
+            File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory+@"\lang.json", o1.ToString());
+        }
+
+        private string lecturefichierlangue(string xlangue) //lecture du fichier json pour verification
+        {
+            string xutilbureau = string.Empty;
+            if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + @"\lang.json"))
+            {
+                JObject o1 = JObject.Parse(File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + @"\lang.json"));
+                xutilbureau = o1[xlangue].ToString();
+            }
+            else
+            {
+                creerfichierlangue();
+                xutilbureau = lecturefichierlangue(xlangue);
+            }
+            return xutilbureau;
         }
     }
 }

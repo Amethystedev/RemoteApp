@@ -17,6 +17,9 @@
     <Reference Include="Cassia">
       <HintPath>DLL\Cassia.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>C:\Users\Nicolas\source\repos\PassYoutube\bin\Debug\net6.0-windows\Newtonsoft.Json.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
   <ItemGroup>
